@@ -115,26 +115,27 @@ button.secondary{background:#fff;color:var(--ink)}
   </div>
 
 <script>
-// Cole aqui a URL do seu Apps Script implantado como Web App:
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz2-EKpYeVdvj31MkGnLDe_Wh_aDlrlGrhbfMdXjRUDiE7EYVqwek_o274yZtvTyfaL/exec";
+const WEB_APP_URL = "COLE AQUI O SEU LINK DO APPS SCRIPT EXEC"; // NÃO PODE SER "dev", tem que ser o /exec
 
 const ok = document.getElementById('ok');
 const err = document.getElementById('err');
+
 document.getElementById('leadForm').addEventListener('submit', async (ev) => {
   ev.preventDefault();
-  ok.style.display="none"; err.style.display="none";
-  const data = Object.fromEntries(new FormData(ev.target).entries());
+  ok.style.display = "none";
+  err.style.display = "none";
+
+  const formData = new FormData(ev.target);
+
   try {
-    const r = await fetch(WEB_APP_URL, {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(data)
+    await fetch(WEB_APP_URL, {
+      method: "POST",
+      body: formData
     });
-    const j = await r.json();
-    if(j.result==="success"){ ok.style.display="block"; ev.target.reset(); }
-    else throw 0;
-  } catch(e){ err.style.display="block"; }
+    ok.style.display = "block";
+    ev.target.reset();
+  } catch (e) {
+    err.style.display = "block";
+  }
 });
 </script>
-</body>
-</html>
